@@ -4,10 +4,10 @@ import * as yup from "yup";
 const formSchema = yup.object().shape({
     name: yup.string().required("Please input a name").min(2, "Name must be 2+ characters"),
     pieSize: yup.string(),
-    topPep:yup.boolean().required().oneOf([true]),
-    topSau:yup.boolean().required().oneOf([true]),
-    topBac:yup.boolean().required().oneOf([true]),
-    topChe:yup.boolean().required().oneOf([true]),
+    topPep:yup.boolean(),
+    topSau:yup.boolean(),
+    topBac:yup.boolean(),
+    topChe:yup.boolean(),
 
 });
 export default function Form() {
@@ -15,18 +15,18 @@ export default function Form() {
     const [formState, setFormState] = useState({
         name: "",
         pieSize: "",
-        topPep: "",
-        topSau: "",
-        topBac: "",
-        topChe: ""
+        topPep: false,
+        topSau: false,
+        topBac: false,
+        topChe: false
     });
     const [errors, setErrors] = useState({
         name: "",
         pieSize: "",
-        topPep: "",
-        topSau: "",
-        topBac: "",
-        topChe: ""
+        topPep: false,
+        topSau: false,
+        topBac: false,
+        topChe: false
     });
     
     const [order, setOrder] = useState([]);
@@ -44,10 +44,10 @@ export default function Form() {
                 setFormState({
                     name: "",
                     pieSize: "",
-                    topPep: "",
-                    topSau: "",
-                    topBac: "",
-                    topChe: ""
+                    topPep: false,
+                    topSau: false,
+                    topBac: false,
+                    topChe: false
                 });
             })
             .catch(err => console.log("Something went wrong when submitting your form", err.response));
@@ -55,7 +55,7 @@ export default function Form() {
     const validateChange = e => {
         yup 
             .reach(formSchema, e.target.name)
-            .validate(e.target.name === "terms" ? e.target.checked : e.target.value)
+            .validate(e.target.value)
             .then(valid => {
                 setErrors({
                     ...errors,
